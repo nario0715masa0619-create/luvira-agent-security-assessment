@@ -28,11 +28,14 @@ AI Agentが実際に何をできてしまうかをEvidence付きで検証する�
 
 ## Current Phase
 
-**Phase 0 — Product Definition**
+**Phase 0 — Product Definition: 完了・baseline化済み**
+（commit `97fbb1d036f3beb5d3d25676e16d1ffe7fa39cdf`、origin/mainへpush済み）
 
-Threat Model / Attack Taxonomy / Evidence Schema / Finding Schema / MVP Architecture /
-実装には未着手。現在はRepository Foundationの構築と、
-商用商品として何を提供するのかの言語化を行っている段階。
+**Phase 1 — Commercial-first Threat Model Definition: 進行中**
+
+Formal Attack Taxonomy / Evidence Schema / Finding Schema / MVP Architecture /
+実装には未着手。Phase 1ではDesign Partner向けAssessment v1の実施範囲・優先順位を
+定めるCommercial-first Threat Modelを作成している。
 
 ## Core Product Hypothesis
 
@@ -66,9 +69,12 @@ Threat Model / Attack Taxonomy / Evidence Schema / Finding Schema / MVP Architec
 |---|---|
 | [CLAUDE.md](CLAUDE.md) | このRepositoryで作業する際の原則・制約 |
 | [docs/product/PRODUCT_DEFINITION.md](docs/product/PRODUCT_DEFINITION.md) | Phase 0 Product Definition（顧客・提供価値・スコープ・商用仮説） |
+| [docs/security/THREAT_MODEL.md](docs/security/THREAT_MODEL.md) | Phase 1 Commercial-first Threat Model（資産・脅威主体・Attack Surface・v1 Core Threat Scenario Candidate） |
 
 ## Status
 
-Phase 0 進行中。Repository Foundation構築および Product Definition初版作成済み。
+Phase 0（Repository Foundation & Product Definition）完了・baseline commit済み。
+Phase 1（Commercial-first Threat Model Definition）進行中。
 Fact / Hypothesis / Decision / Open Questionの区別、および人間承認プロセスは
-[docs/product/PRODUCT_DEFINITION.md](docs/product/PRODUCT_DEFINITION.md) を参照。
+[docs/product/PRODUCT_DEFINITION.md](docs/product/PRODUCT_DEFINITION.md) および
+[docs/security/THREAT_MODEL.md](docs/security/THREAT_MODEL.md) を参照。
