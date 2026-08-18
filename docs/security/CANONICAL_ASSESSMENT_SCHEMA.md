@@ -170,7 +170,7 @@ actor reference / safety constraint context / Evidence relationships。
 **[Decision]** Evidenceはglobally unique identityを持つCanonical Entity
 （事実の記録）。
 
-**[Decision]** 最低限意味論: evidence identity / source Execution / 
+**[Decision]** 最低限意味論: evidence identity / source Execution /
 `observed_at` / evidence type（10章） / normalized・minimized content /
 provenance / capture actor / redaction・minimization metadata / optional
 integrity metadata（11章）。
