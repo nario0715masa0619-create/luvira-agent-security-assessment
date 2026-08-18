@@ -31,11 +31,14 @@ AI Agentが実際に何をできてしまうかをEvidence付きで検証する�
 **Phase 0 — Product Definition: 完了・baseline化済み**
 （commit `97fbb1d036f3beb5d3d25676e16d1ffe7fa39cdf`、origin/mainへpush済み）
 
-**Phase 1 — Commercial-first Threat Model Definition: 進行中**
+**Phase 1 — Commercial-first Threat Model Definition: 完了・baseline化済み**
+（commit `029cb451d66e52f12cb0faeb179f9a5dfd807802`、origin/mainへpush済み）
 
-Formal Attack Taxonomy / Evidence Schema / Finding Schema / MVP Architecture /
-実装には未着手。Phase 1ではDesign Partner向けAssessment v1の実施範囲・優先順位を
-定めるCommercial-first Threat Modelを作成している。
+**Phase 2 — Minimal Attack Taxonomy: 進行中**
+
+Evidence Schema / Finding Schema / MVP Architecture / 実装には未着手。
+Phase 2ではAssessment v1で実施・記録・説明しやすい最小限のAttack分類
+（網羅的Taxonomyではない）を作成している。
 
 ## Core Product Hypothesis
 
@@ -70,11 +73,14 @@ Formal Attack Taxonomy / Evidence Schema / Finding Schema / MVP Architecture /
 | [CLAUDE.md](CLAUDE.md) | このRepositoryで作業する際の原則・制約 |
 | [docs/product/PRODUCT_DEFINITION.md](docs/product/PRODUCT_DEFINITION.md) | Phase 0 Product Definition（顧客・提供価値・スコープ・商用仮説） |
 | [docs/security/THREAT_MODEL.md](docs/security/THREAT_MODEL.md) | Phase 1 Commercial-first Threat Model（資産・脅威主体・Attack Surface・v1 Core Threat Scenario Candidate） |
+| [docs/security/ATTACK_TAXONOMY.md](docs/security/ATTACK_TAXONOMY.md) | Phase 2 Minimal Attack Taxonomy（v1 Attack Candidate・Threat Scenario/Business Impact Mapping） |
 
 ## Status
 
 Phase 0（Repository Foundation & Product Definition）完了・baseline commit済み。
-Phase 1（Commercial-first Threat Model Definition）進行中。
+Phase 1（Commercial-first Threat Model Definition）完了・baseline commit済み。
+Phase 2（Minimal Attack Taxonomy）進行中。
 Fact / Hypothesis / Decision / Open Questionの区別、および人間承認プロセスは
-[docs/product/PRODUCT_DEFINITION.md](docs/product/PRODUCT_DEFINITION.md) および
-[docs/security/THREAT_MODEL.md](docs/security/THREAT_MODEL.md) を参照。
+[docs/product/PRODUCT_DEFINITION.md](docs/product/PRODUCT_DEFINITION.md)、
+[docs/security/THREAT_MODEL.md](docs/security/THREAT_MODEL.md) および
+[docs/security/ATTACK_TAXONOMY.md](docs/security/ATTACK_TAXONOMY.md) を参照。

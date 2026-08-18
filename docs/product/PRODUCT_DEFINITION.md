@@ -324,9 +324,12 @@ Scoping
    （契約・免責事項を含む）。
 5. Retest（9c）のTier別扱いをいつまでに確定するか。
 6. Canonical Assessment Recordの正式設計にいつ着手するか（Phase 1のスコープに含めるか）。
-7. Formal Attack Taxonomyの設計着手タイミング（v1 Core Scope 5aとの対応）。
-   なお、Commercial-first Threat Model（非Formal版）はPhase 1として
-   [docs/security/THREAT_MODEL.md](../security/THREAT_MODEL.md) で着手済み。
+7. Formal（網羅的）Attack Taxonomyの設計着手タイミング（v1 Core Scope 5a
+   との対応）。なお、Commercial-first Threat Model（非Formal版）はPhase 1
+   として[docs/security/THREAT_MODEL.md](../security/THREAT_MODEL.md)で、
+   Commercial-first Minimal Attack Taxonomy（同じく非Formal版）はPhase 2
+   として[docs/security/ATTACK_TAXONOMY.md](../security/ATTACK_TAXONOMY.md)
+   で、それぞれ着手済み。
 8. 診断実施者（誰が実際にAssessmentを行うか）の体制は現時点でどうなっているか。
 9. Evidence-backed Finding「最低3件以上」（Success Criteria 4）は、初回Assessmentの
    Scope次第で現実的か、事前に検証が必要か。

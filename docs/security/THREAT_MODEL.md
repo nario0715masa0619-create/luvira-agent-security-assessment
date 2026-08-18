@@ -439,3 +439,8 @@ Scenario Candidateを**入力（Input）**として使用する。ただし、�
 本文書のCore Threat Scenario Candidateは、あくまで「v1 Assessmentで
 商業的に優先すべき領域」を示すものであり、Attack Taxonomyの正式な
 分類項目として直接転記されることを保証するものではない。
+
+**[Fact]** Phase 2 Minimal Attack Taxonomy（Commercial-first・非網羅版）は
+[docs/security/ATTACK_TAXONOMY.md](ATTACK_TAXONOMY.md) として着手済みで
+ある。ただし同文書もFormal/Comprehensive Attack Taxonomyではなく、本章の
+方針（Coverage定義・ID体系の正式設計は別途）を踏襲している。
