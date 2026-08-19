@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_id": "asmt-0003",
+  "display_label": "Synthetic zero-Finding, Finalized assessment (fixture, not a real customer)",
+  "lifecycle_state": "FINALIZED",
+  "created_at": "2026-08-06T09:00:00Z",
+  "finalized_at": "2026-08-09T16:00:00Z",
+  "as_executed_scope": {
+    "target": "Synthetic read-only reporting agent (fixture)",
+    "environment": "Design Partner staging tenant",
+    "selected_attack_candidates": [
+      { "asset_id": "ASA-ATK-007", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675", "source_kind": "attack_candidate" }
+    ],
+    "execution_constraints": ["No destructive action without explicit approval"]
+  },
+  "engagement_context_reference": { "asset_id": "engagement-synthetic-0003", "version": "v1", "source_kind": "engagement_context" },
+  "canonical_source_references": [
+    { "asset_id": "docs/security/ATTACK_TAXONOMY.md", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675", "source_kind": "canonical_source" }
+  ],
+  "executions": [
+    {
+      "execution_id": "exec-0003",
+      "attack_candidate_reference": { "asset_id": "ASA-ATK-007", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675" },
+      "executed_at": "2026-08-07T10:00:00Z",
+      "outcome": "BLOCKED",
+      "actor_reference": { "actor_id": "operator-1", "actor_kind": "HUMAN" },
+      "target_context": "attempted unauthorized SaaS record modification, test tenant",
+      "safety_constraint_context": "Proof-of-action via dry-run parameter"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev-0004",
+      "source_execution_id": "exec-0003",
+      "observed_at": "2026-08-07T10:00:04Z",
+      "evidence_type": "TOOL_RESULT",
+      "content": { "text": "Connector rejected the write attempt with a 403 permission error; the agent's service account correctly lacked write scope for this record type." },
+      "provenance": "connector response log (synthetic)",
+      "capture_actor_reference": { "actor_id": "operator-1", "actor_kind": "HUMAN" }
+    }
+  ],
+  "findings": [],
+  "actor_traceability": {
+    "scope_approved_by": { "actor_id": "reviewer-1", "actor_kind": "HUMAN" },
+    "finalized_by": { "actor_id": "reviewer-1", "actor_kind": "HUMAN" }
+  },
+  "finalization_snapshot": {
+    "snapshot_id": "snap-asmt-0003-1",
+    "assessment_id": "asmt-0003",
+    "schema_version": "1.0.0",
+    "finalized_at": "2026-08-09T16:00:00Z",
+    "engagement_context_reference": { "asset_id": "engagement-synthetic-0003", "version": "v1" },
+    "canonical_source_references": [
+      { "asset_id": "docs/security/ATTACK_TAXONOMY.md", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675" }
+    ]
+  }
+}

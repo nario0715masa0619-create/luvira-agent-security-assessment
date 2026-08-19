@@ -1,0 +1,67 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/evidence.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Evidence (LUVIRA-ASA-008 §9)",
+  "$defs": {
+    "evidenceType": {
+      "enum": ["TEXT", "STRUCTURED_DATA", "REQUEST", "RESPONSE", "TOOL_CALL", "TOOL_RESULT", "LOG", "SCREENSHOT", "OTHER"],
+      "description": "Descriptive category only. Do not infer security meaning from evidence_type alone (LUVIRA-ASA-008 §9a)."
+    },
+    "evidenceContent": {
+      "description": "A small closed union, not an open 'dump' field (LUVIRA-ASA-008 §17). Exactly one shape must be used.",
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": { "text": { "type": "string" } },
+          "required": ["text"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": { "structured": { "type": "object" } },
+          "required": ["structured"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": { "reference": { "type": "string", "minLength": 1 } },
+          "required": ["reference"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "integrityMetadata": {
+      "description": "SHOULD HAVE, not required (LUVIRA-ASA-008 §9b) — canonical serialization for hashing is not yet fixed. Never a substitute for redacting a secret.",
+      "type": "object",
+      "properties": {
+        "algorithm": { "type": "string", "minLength": 1 },
+        "digest": { "type": "string", "minLength": 1 }
+      },
+      "required": ["algorithm", "digest"],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Evidence is Fact. This schema deliberately has no severity, risk, root_cause, business_impact, remediation, or finding_decision field — those are evaluative and belong to Finding only (LUVIRA-ASA-008 §9, §18-style prohibition carried into schema).",
+      "properties": {
+        "evidence_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "source_execution_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "observed_at": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/timestamp" },
+        "evidence_type": { "$ref": "#/$defs/evidenceType" },
+        "content": { "$ref": "#/$defs/evidenceContent" },
+        "provenance": {
+          "type": "string",
+          "description": "Which tool/system/method produced this evidence."
+        },
+        "capture_actor_reference": { "$ref": "https://luvira.internal/asa/schemas/actor.schema.json#/$defs/actorReference" },
+        "minimization_note": {
+          "type": "string",
+          "description": "What was redacted/minimized, without storing the removed content."
+        },
+        "integrity": { "$ref": "#/$defs/integrityMetadata" }
+      },
+      "required": ["evidence_id", "source_execution_id", "observed_at", "evidence_type", "content", "capture_actor_reference"],
+      "additionalProperties": false
+    }
+  }
+}

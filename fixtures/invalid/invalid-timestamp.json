@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_id": "asmt-invalid-k",
+  "lifecycle_state": "DRAFT",
+  "created_at": "not-a-timestamp",
+  "as_executed_scope": { "target": "invalid fixture: created_at is not a valid date-time" },
+  "engagement_context_reference": { "asset_id": "engagement-invalid", "version": "v1" },
+  "canonical_source_references": [{ "asset_id": "docs/security/ATTACK_TAXONOMY.md", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675" }],
+  "executions": [],
+  "evidence": [],
+  "findings": []
+}

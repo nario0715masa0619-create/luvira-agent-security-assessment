@@ -1,0 +1,162 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/finding.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Finding (LUVIRA-ASA-008 §10)",
+  "$defs": {
+    "findingNature": {
+      "enum": ["ATTACK_SUCCESS", "STRUCTURAL_CAPABILITY"],
+      "description": "Required explicit discriminator (LUVIRA-ASA-008 §10a / FINDING_MODEL.md §4). Never inferred from attack_candidate_references cardinality."
+    },
+    "trustBoundaryCategory": {
+      "enum": [
+        "User / External Content -> LLM / Agent",
+        "LLM / Agent -> RAG / Memory",
+        "LLM / Agent -> MCP / Tool Calling",
+        "Tool / Connector -> SaaS / DB / API",
+        "Agent Runtime -> Credential / Permission Store",
+        "Assessment Operator -> Customer Environment"
+      ],
+      "description": "The 6 Trust Boundary categories already approved in THREAT_MODEL.md §4. Reused here, not redefined."
+    },
+    "authorityImpactCategory": {
+      "enum": [
+        "Authority",
+        "Permission",
+        "Tool",
+        "Connector",
+        "Credential",
+        "External Action",
+        "Data Access",
+        "Data Exfiltration",
+        "Business Process Manipulation"
+      ],
+      "description": "The 9 Agentic Action Attack Surface categories already approved in THREAT_MODEL.md §7. Reused here, not redefined."
+    },
+    "businessImpactCategory": {
+      "enum": [
+        "Enterprise deal blocker",
+        "Security Questionnaire failure",
+        "Customer data exposure",
+        "Unauthorized business action",
+        "Loss of customer trust",
+        "Regulatory / contractual concern",
+        "Remediation cost",
+        "Incident response burden"
+      ],
+      "description": "The 8 Canonical Business Impact Model categories already approved in THREAT_MODEL.md §9. Finding REFERENCES these; it does not copy or redefine them (FINDING_MODEL.md §6, ASSESSMENT_OUTPUT_MODEL.md §9)."
+    },
+    "qualitativeLevel": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Controlled string, deliberately NOT a closed enum. FINDING_MODEL.md §5 treats HIGH/MEDIUM/LOW as a documented MVP candidate ('...等の少数段階を候補とする'), not yet a pinned Canonical enum by explicit Decision (LUVIRA-ASA-009 §24). Do not silently promote the candidate to a hard enum here.",
+      "examples": ["HIGH", "MEDIUM", "LOW"]
+    },
+    "findingLifecycleState": {
+      "enum": ["DRAFT", "INTERNAL_REVIEW", "CONFIRMED", "SEVERITY_ASSIGNED", "CUSTOMER_OUTPUT"],
+      "description": "Mirrors FINDING_MODEL.md §8's stated sequence: Draft Finding -> Internal Review -> Confirmed Finding -> Severity Assignment -> Customer Output."
+    },
+    "finding": {
+      "type": "object",
+      "description": "Owned by exactly one Assessment; never reused across Assessments (existing Decision E). Contains no Framework/OWASP/NIST/MITRE identifiers (existing Decision K).",
+      "properties": {
+        "finding_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "assessment_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "finding_nature": { "$ref": "#/$defs/findingNature" },
+        "evidence_ids": {
+          "type": "array",
+          "items": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+          "minItems": 1,
+          "description": "A Finding with zero Evidence is prohibited (LUVIRA-ASA-008 §11, LUVIRA-ASA-009 §22)."
+        },
+        "attack_candidate_references": {
+          "type": "array",
+          "items": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" },
+          "description": "0..N. STRUCTURAL_CAPABILITY findings may have zero. Whether ATTACK_SUCCESS findings must have >=1 is not conditionally enforced here — existing documents do not pin that invariant explicitly (LUVIRA-ASA-009 §23); left as an Open Question rather than invented."
+        },
+        "root_cause": { "type": "string", "minLength": 1 },
+        "trust_boundary_violations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/trustBoundaryCategory" },
+          "minItems": 1
+        },
+        "authority_impact": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/authorityImpactCategory" },
+          "minItems": 1
+        },
+        "severity": { "$ref": "#/$defs/qualitativeLevel" },
+        "confidence": { "$ref": "#/$defs/qualitativeLevel" },
+        "likelihood": {
+          "allOf": [{ "$ref": "#/$defs/qualitativeLevel" }],
+          "description": "Optional (FINDING_MODEL.md §9b / existing Open Question). Never required, never folded into severity."
+        },
+        "exposure": {
+          "allOf": [{ "$ref": "#/$defs/qualitativeLevel" }],
+          "description": "Optional (same status as likelihood)."
+        },
+        "business_impact_references": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/businessImpactCategory" },
+          "description": "Optional array (0..N). Not marked required/minItems here — existing documents establish the Reference relationship but do not explicitly pin a minimum count as a hard Decision."
+        },
+        "remediation_recommendation": { "type": "string", "minLength": 1 },
+        "lifecycle_state": { "$ref": "#/$defs/findingLifecycleState" },
+        "created_at": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/timestamp" },
+        "confirmed_at": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/timestamp" },
+        "author_actor_reference": { "$ref": "https://luvira.internal/asa/schemas/actor.schema.json#/$defs/actorReference" },
+        "reviewer_actor_reference": { "$ref": "https://luvira.internal/asa/schemas/actor.schema.json#/$defs/humanActorReference" }
+      },
+      "required": [
+        "finding_id",
+        "assessment_id",
+        "finding_nature",
+        "evidence_ids",
+        "root_cause",
+        "trust_boundary_violations",
+        "authority_impact",
+        "severity",
+        "confidence",
+        "remediation_recommendation",
+        "lifecycle_state",
+        "created_at",
+        "author_actor_reference"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": ["confirmed_at"]
+          },
+          "then": {
+            "required": ["reviewer_actor_reference"],
+            "description": "Structural constraint for LUVIRA-ASA-008 §10b / LUVIRA-ASA-009 §26: confirmed_at present implies a human reviewer must be recorded. reviewer_actor_reference's own schema already constrains actor_kind to HUMAN."
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "lifecycle_state": { "enum": ["CONFIRMED", "SEVERITY_ASSIGNED", "CUSTOMER_OUTPUT"] }
+            },
+            "required": ["lifecycle_state"]
+          },
+          "then": {
+            "required": ["confirmed_at", "reviewer_actor_reference"],
+            "description": "A Finding at CONFIRMED or later lifecycle stage must record its confirmation (FINDING_MODEL.md §8: Confirmation is reproducibility/Evidence-quality confirmation, a prerequisite to Severity Assignment/Customer Output, and is a Human act per §10b)."
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "lifecycle_state": { "enum": ["DRAFT", "INTERNAL_REVIEW"] }
+            },
+            "required": ["lifecycle_state"]
+          },
+          "then": {
+            "not": { "required": ["confirmed_at"] },
+            "description": "Prevents semantic contradiction: a Finding not yet at the CONFIRMED stage must not carry a confirmation timestamp."
+          }
+        }
+      ]
+    }
+  }
+}

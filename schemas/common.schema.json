@@ -1,0 +1,22 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/common.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Common value types shared across the Canonical Assessment Record (LUVIRA-ASA-008 §19, §4)",
+  "$defs": {
+    "opaqueId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Opaque machine identity (LUVIRA-ASA-008 §4). No customer/date/severity/environment meaning is encoded or validated here — identity is intentionally content-free. Global uniqueness is a domain invariant this schema cannot enforce by itself."
+    },
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "description": "Canonical data contract version (LUVIRA-ASA-008 §6), distinct from Assessment lifecycle state. Simple MAJOR.MINOR.PATCH string."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "All Canonical timestamps are UTC (LUVIRA-ASA-008 §19). Customer-timezone rendering is a Derived/Output-layer concern, never stored here."
+    }
+  }
+}

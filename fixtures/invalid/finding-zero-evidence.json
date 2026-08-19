@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_id": "asmt-invalid-f",
+  "lifecycle_state": "DRAFT",
+  "created_at": "2026-08-15T08:00:00Z",
+  "as_executed_scope": { "target": "invalid fixture: Finding with zero Evidence" },
+  "engagement_context_reference": { "asset_id": "engagement-invalid", "version": "v1" },
+  "canonical_source_references": [{ "asset_id": "docs/security/ATTACK_TAXONOMY.md", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675" }],
+  "executions": [],
+  "evidence": [],
+  "findings": [
+    {
+      "finding_id": "find-invalid-f",
+      "assessment_id": "asmt-invalid-f",
+      "finding_nature": "STRUCTURAL_CAPABILITY",
+      "evidence_ids": [],
+      "root_cause": "Invalid: this Finding has no supporting Evidence, which LUVIRA-ASA-008 §11 prohibits.",
+      "trust_boundary_violations": ["Tool / Connector -> SaaS / DB / API"],
+      "authority_impact": ["Permission"],
+      "severity": "LOW",
+      "confidence": "LOW",
+      "remediation_recommendation": "n/a — invalid fixture",
+      "lifecycle_state": "DRAFT",
+      "created_at": "2026-08-15T08:00:00Z",
+      "author_actor_reference": { "actor_id": "operator-1", "actor_kind": "HUMAN" }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/references.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Generic external Canonical reference (LUVIRA-ASA-008 §18)",
+  "$defs": {
+    "canonicalReference": {
+      "type": "object",
+      "description": "A pointer to an external Canonical asset this Assessment does not own (Engagement Context, Attack Candidate, Assessment Method, Business Impact Model, Crosswalk, or another Canonical Source). 'version' is an opaque string — in this repository it is populated with a git commit hash by convention, but this schema does not hard-code Git as the mechanism (LUVIRA-ASA-008 §18).",
+      "properties": {
+        "asset_id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Identifier of the referenced Canonical asset (e.g. a document path, an Attack Candidate ID such as ASA-ATK-001, an Engagement Context ID)."
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Opaque version marker for the referenced asset as it existed at reference time (e.g. a git commit hash of the source document)."
+        },
+        "source_kind": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional free-text kind label (e.g. 'engagement_context', 'attack_candidate', 'business_impact_model', 'crosswalk')."
+        },
+        "label": {
+          "type": "string",
+          "description": "Optional human-readable label for this reference."
+        }
+      },
+      "required": ["asset_id", "version"],
+      "additionalProperties": false
+    }
+  }
+}

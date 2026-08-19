@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_id": "asmt-invalid-i",
+  "lifecycle_state": "DRAFT",
+  "created_at": "2026-08-15T08:00:00Z",
+  "as_executed_scope": { "target": "invalid fixture: finding_nature not in enum" },
+  "engagement_context_reference": { "asset_id": "engagement-invalid", "version": "v1" },
+  "canonical_source_references": [{ "asset_id": "docs/security/ATTACK_TAXONOMY.md", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675" }],
+  "executions": [],
+  "evidence": [
+    {
+      "evidence_id": "ev-invalid-i",
+      "source_execution_id": "exec-does-not-exist",
+      "observed_at": "2026-08-15T09:00:00Z",
+      "evidence_type": "LOG",
+      "content": { "text": "placeholder" },
+      "capture_actor_reference": { "actor_id": "operator-1", "actor_kind": "HUMAN" }
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "find-invalid-i",
+      "assessment_id": "asmt-invalid-i",
+      "finding_nature": "VULNERABILITY",
+      "evidence_ids": ["ev-invalid-i"],
+      "root_cause": "Invalid: finding_nature 'VULNERABILITY' is not ATTACK_SUCCESS or STRUCTURAL_CAPABILITY (existing Decision, FINDING_MODEL.md §2: Finding is not a Vulnerability).",
+      "trust_boundary_violations": ["Tool / Connector -> SaaS / DB / API"],
+      "authority_impact": ["Permission"],
+      "severity": "LOW",
+      "confidence": "LOW",
+      "remediation_recommendation": "n/a — invalid fixture",
+      "lifecycle_state": "DRAFT",
+      "created_at": "2026-08-15T08:00:00Z",
+      "author_actor_reference": { "actor_id": "operator-1", "actor_kind": "HUMAN" }
+    }
+  ]
+}

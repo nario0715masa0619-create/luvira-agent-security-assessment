@@ -1,0 +1,56 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/scope.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "As-executed Scope (LUVIRA-ASA-008 §6a, §11)",
+  "$defs": {
+    "asExecutedScope": {
+      "type": "object",
+      "description": "Assessment-owned (or Retest Execution Set-owned) Value Object describing what was actually assessed. This is distinct from the Agreed Scope, which is an external Engagement Context reference, not embedded here. permission_surface is a DESCRIPTION of granted access only — this schema deliberately has no field for storing an actual credential, token, password, or secret value (LUVIRA-ASA-008 §10, §17).",
+      "properties": {
+        "target": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Description of the assessed Agent/system."
+        },
+        "environment": {
+          "type": "string"
+        },
+        "components": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "trust_boundaries": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tools": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "connectors": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "permission_surface": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Descriptive statements of granted access (e.g. 'Slack OAuth token with channel:read scope'). Never an actual credential/token/secret value."
+        },
+        "selected_attack_candidates": {
+          "type": "array",
+          "items": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" }
+        },
+        "exclusions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "execution_constraints": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["target"],
+      "additionalProperties": false
+    }
+  }
+}

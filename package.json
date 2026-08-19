@@ -1,0 +1,17 @@
+{
+  "name": "luvira-agent-security-assessment-schema",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Machine-readable JSON Schema (draft 2020-12) implementation of the Canonical Assessment Record defined in docs/security/CANONICAL_ASSESSMENT_SCHEMA.md (LUVIRA-ASA-008), plus fixtures and validation tests (LUVIRA-ASA-009). Not a database, API, or report generator.",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "dependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  }
+}

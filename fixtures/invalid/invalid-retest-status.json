@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "retest_id": "retest-invalid-j",
+  "original_assessment_id": "asmt-0001",
+  "target_finding_ids": ["find-0001"],
+  "as_executed_scope": { "target": "invalid fixture: retest status not in enum" },
+  "executions": [
+    {
+      "execution_id": "exec-retest-invalid-j",
+      "attack_candidate_reference": { "asset_id": "ASA-ATK-001", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675" },
+      "executed_at": "2026-08-16T10:00:00Z",
+      "outcome": "COMPLETED",
+      "actor_reference": { "actor_id": "operator-1", "actor_kind": "HUMAN" }
+    }
+  ],
+  "evidence": [],
+  "finding_statuses": [
+    { "finding_id": "find-0001", "status": "FIXED" }
+  ],
+  "retested_at": "2026-08-16T10:30:00Z",
+  "actor_reference": { "actor_id": "operator-1", "actor_kind": "HUMAN" }
+}

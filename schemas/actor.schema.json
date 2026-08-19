@@ -1,0 +1,37 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/actor.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Actor reference (LUVIRA-ASA-008 §13)",
+  "$defs": {
+    "actorReference": {
+      "type": "object",
+      "description": "Lightweight external reference to who/what performed an action. Not a full Actor/Role/Authority Entity (LUVIRA-ASA-008 §13, existing Decision X: no Luvira OS Authority model imported).",
+      "properties": {
+        "actor_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor_kind": {
+          "enum": ["HUMAN", "AI_AGENT", "SYSTEM"]
+        },
+        "display_label": {
+          "type": "string"
+        }
+      },
+      "required": ["actor_id", "actor_kind"],
+      "additionalProperties": false
+    },
+    "humanActorReference": {
+      "description": "An actorReference constrained to actor_kind=HUMAN, for the specific points (Assessment finalization, Finding confirmation) where existing Decisions require human authority (LUVIRA-ASA-008 §10b, §14).",
+      "allOf": [
+        { "$ref": "#/$defs/actorReference" },
+        {
+          "type": "object",
+          "properties": {
+            "actor_kind": { "const": "HUMAN" }
+          }
+        }
+      ]
+    }
+  }
+}

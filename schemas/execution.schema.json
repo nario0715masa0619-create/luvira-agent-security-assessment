@@ -1,0 +1,33 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/execution.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Execution (LUVIRA-ASA-008 §7, §8)",
+  "$defs": {
+    "executionOutcome": {
+      "enum": ["COMPLETED", "BLOCKED", "ERRORED", "INCONCLUSIVE_EXECUTION"],
+      "description": "COMPLETED: the planned action ran to the point of observation. BLOCKED: the target or a safety control prevented the action from proceeding — BLOCKED does NOT automatically mean safe (LUVIRA-ASA-008 §8). ERRORED: a technical failure prevented completion. INCONCLUSIVE_EXECUTION: ran, but evidence is insufficient to classify the result. This is completely separate from whether a Finding exists."
+    },
+    "execution": {
+      "type": "object",
+      "description": "An Execution is not a Finding (LUVIRA-ASA-008 §7).",
+      "properties": {
+        "execution_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "attack_candidate_reference": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" },
+        "assessment_method_reference": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" },
+        "executed_at": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/timestamp" },
+        "outcome": { "$ref": "#/$defs/executionOutcome" },
+        "actor_reference": { "$ref": "https://luvira.internal/asa/schemas/actor.schema.json#/$defs/actorReference" },
+        "target_context": {
+          "type": "string",
+          "description": "Which in-scope target this specific execution was against, if scope covers multiple targets."
+        },
+        "safety_constraint_context": {
+          "type": "string",
+          "description": "Free-text reference to the applicable Safety Constraint (THREAT_MODEL.md §10), e.g. 'dry-run' / 'proof-of-action per ASA-MTH-001'."
+        }
+      },
+      "required": ["execution_id", "attack_candidate_reference", "executed_at", "outcome", "actor_reference"],
+      "additionalProperties": false
+    }
+  }
+}

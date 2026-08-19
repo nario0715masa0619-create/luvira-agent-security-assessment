@@ -1,0 +1,115 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/assessment.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Canonical Assessment Record (root) — LUVIRA-ASA-008 §5, §8",
+  "description": "The root document for one bounded Assessment. Contains no Report prose, Executive Summary, or Customer-facing text (LUVIRA-ASA-009 §45) — those are Derived Output, never part of this Canonical document.",
+  "type": "object",
+  "properties": {
+    "schema_version": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/schemaVersion" },
+    "assessment_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+    "display_label": {
+      "type": "string",
+      "description": "Human-readable, mutable label. Never used for relationships/identity (LUVIRA-ASA-008 §4)."
+    },
+    "lifecycle_state": {
+      "enum": ["DRAFT", "ACTIVE", "UNDER_REVIEW", "FINALIZED", "ARCHIVED"]
+    },
+    "created_at": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/timestamp" },
+    "finalized_at": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/timestamp" },
+    "as_executed_scope": { "$ref": "https://luvira.internal/asa/schemas/scope.schema.json#/$defs/asExecutedScope" },
+    "engagement_context_reference": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" },
+    "canonical_source_references": {
+      "type": "array",
+      "items": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" },
+      "minItems": 1,
+      "description": "Which versions of THREAT_MODEL.md / ATTACK_TAXONOMY.md / FINDING_MODEL.md etc. were in effect for this Assessment."
+    },
+    "crosswalk_reference": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" },
+    "executions": {
+      "type": "array",
+      "items": { "$ref": "https://luvira.internal/asa/schemas/execution.schema.json#/$defs/execution" }
+    },
+    "evidence": {
+      "type": "array",
+      "items": { "$ref": "https://luvira.internal/asa/schemas/evidence.schema.json#/$defs/evidence" }
+    },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "https://luvira.internal/asa/schemas/finding.schema.json#/$defs/finding" }
+    },
+    "actor_traceability": {
+      "type": "object",
+      "description": "Traceability references only, not a Role/Authority model (LUVIRA-ASA-008 §13).",
+      "properties": {
+        "scope_approved_by": { "$ref": "https://luvira.internal/asa/schemas/actor.schema.json#/$defs/actorReference" },
+        "finalized_by": { "$ref": "https://luvira.internal/asa/schemas/actor.schema.json#/$defs/humanActorReference" }
+      },
+      "additionalProperties": false
+    },
+    "finalization_snapshot": {
+      "type": "object",
+      "description": "A metadata anchor recorded on this same Assessment document at the moment lifecycle_state becomes FINALIZED (LUVIRA-ASA-009 §31/§32 resolution: there is no separate duplicate Canonical copy of the Assessment; the FINALIZED Assessment document itself is the immutable representation, and this object is only the identity/version anchor used to cite 'this exact state' from a later Report).",
+      "properties": {
+        "snapshot_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "assessment_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "schema_version": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/schemaVersion" },
+        "finalized_at": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/timestamp" },
+        "engagement_context_reference": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" },
+        "canonical_source_references": {
+          "type": "array",
+          "items": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" }
+        },
+        "crosswalk_reference": { "$ref": "https://luvira.internal/asa/schemas/references.schema.json#/$defs/canonicalReference" }
+      },
+      "required": ["snapshot_id", "assessment_id", "schema_version", "finalized_at", "engagement_context_reference", "canonical_source_references"],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "assessment_id",
+    "lifecycle_state",
+    "created_at",
+    "as_executed_scope",
+    "engagement_context_reference",
+    "canonical_source_references",
+    "executions",
+    "evidence",
+    "findings"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "lifecycle_state": { "const": "FINALIZED" } },
+        "required": ["lifecycle_state"]
+      },
+      "then": {
+        "required": ["finalized_at", "finalization_snapshot", "actor_traceability"],
+        "properties": {
+          "actor_traceability": {
+            "type": "object",
+            "required": ["finalized_by"],
+            "description": "Assessment Finalization requires a Human Actor (CANONICAL_ASSESSMENT_RECORD.md §10). finalized_by's own schema (humanActorReference) already constrains actor_kind to HUMAN."
+          },
+          "findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "lifecycle_state": {
+                  "type": "string",
+                  "not": { "enum": ["DRAFT", "INTERNAL_REVIEW"] }
+                }
+              }
+            },
+            "description": "No unresolved Draft/Internal-Review Finding may remain once the owning Assessment is FINALIZED (CANONICAL_ASSESSMENT_RECORD.md §10a: 'unresolved Draft Findingが残っていない' and 'Required human review complete' — Internal Review is, by the FINDING_MODEL.md §8 lifecycle ordering, review not yet complete)."
+          }
+        }
+      },
+      "else": {
+        "not": { "required": ["finalization_snapshot"] }
+      }
+    }
+  ]
+}

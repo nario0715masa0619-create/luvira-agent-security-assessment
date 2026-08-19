@@ -1,0 +1,64 @@
+{
+  "$id": "https://luvira.internal/asa/schemas/retest.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Retest Execution Set (LUVIRA-ASA-008 §15)",
+  "$defs": {
+    "retestFindingStatus": {
+      "enum": ["RESOLVED", "STILL_PRESENT", "CHANGED", "INCONCLUSIVE"],
+      "description": "Per-Finding technical status concept (LUVIRA-ASA-008 §15b). CHANGED does not inline-create a new Finding in this schema (LUVIRA-ASA-008 §15c) -- a materially different issue is a separate Finding attributed elsewhere, out of scope for this document."
+    },
+    "retestFindingOutcome": {
+      "type": "object",
+      "properties": {
+        "finding_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "status": { "$ref": "#/$defs/retestFindingStatus" }
+      },
+      "required": ["finding_id", "status"],
+      "additionalProperties": false
+    },
+    "retestExecutionSet": {
+      "type": "object",
+      "description": "Independent Aggregate Root, reference-linked to (not owned by, not embedded in) the original Assessment (LUVIRA-ASA-008 §15). Owns its own executions/evidence/scope; never appended into the original Assessment's arrays (LUVIRA-ASA-009 §29).",
+      "properties": {
+        "schema_version": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/schemaVersion" },
+        "retest_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "original_assessment_id": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+        "target_finding_ids": {
+          "type": "array",
+          "items": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/opaqueId" },
+          "minItems": 1
+        },
+        "as_executed_scope": { "$ref": "https://luvira.internal/asa/schemas/scope.schema.json#/$defs/asExecutedScope" },
+        "executions": {
+          "type": "array",
+          "items": { "$ref": "https://luvira.internal/asa/schemas/execution.schema.json#/$defs/execution" },
+          "minItems": 1
+        },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "https://luvira.internal/asa/schemas/evidence.schema.json#/$defs/evidence" }
+        },
+        "finding_statuses": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/retestFindingOutcome" },
+          "minItems": 1,
+          "description": "One entry per target Finding covered by this retest activity, allowing e.g. Finding A = RESOLVED and Finding B = STILL_PRESENT within the same retest (LUVIRA-ASA-008 §15b)."
+        },
+        "retested_at": { "$ref": "https://luvira.internal/asa/schemas/common.schema.json#/$defs/timestamp" },
+        "actor_reference": { "$ref": "https://luvira.internal/asa/schemas/actor.schema.json#/$defs/actorReference" }
+      },
+      "required": [
+        "schema_version",
+        "retest_id",
+        "original_assessment_id",
+        "target_finding_ids",
+        "as_executed_scope",
+        "executions",
+        "finding_statuses",
+        "retested_at",
+        "actor_reference"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

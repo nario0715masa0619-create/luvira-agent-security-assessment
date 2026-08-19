@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "assessment_id": "asmt-invalid-h",
+  "lifecycle_state": "DRAFT",
+  "created_at": "2026-08-15T08:00:00Z",
+  "as_executed_scope": { "target": "invalid fixture: execution outcome not in enum" },
+  "engagement_context_reference": { "asset_id": "engagement-invalid", "version": "v1" },
+  "canonical_source_references": [{ "asset_id": "docs/security/ATTACK_TAXONOMY.md", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675" }],
+  "executions": [
+    {
+      "execution_id": "exec-invalid-h",
+      "attack_candidate_reference": { "asset_id": "ASA-ATK-001", "version": "0ea014b5e87deb8459ffaf51dc2dfa8823d51675" },
+      "executed_at": "2026-08-15T09:00:00Z",
+      "outcome": "SUCCESS",
+      "actor_reference": { "actor_id": "operator-1", "actor_kind": "HUMAN" }
+    }
+  ],
+  "evidence": [],
+  "findings": []
+}
