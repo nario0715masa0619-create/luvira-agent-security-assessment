@@ -101,3 +101,5 @@ authorization, Rules of Engagement, or the safety precheck.
 Customer-output operations include [Finding QA](docs/operations/FINDING_QA_CHECKLIST.md), the
 [report template](docs/operations/CUSTOMER_REPORT_TEMPLATE.md), [delivery](docs/operations/ASSESSMENT_DELIVERY_PROCEDURE.md),
 and [retention/deletion](docs/operations/ASSESSMENT_DATA_RETENTION_AND_DELETION.md).
+
+First-customer commercial materials are under [docs/commercial](docs/commercial/DESIGN_PARTNER_ONE_PAGER.md).
