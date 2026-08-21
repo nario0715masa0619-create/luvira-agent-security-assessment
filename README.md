@@ -97,3 +97,7 @@ customer approval and qualified legal review remain required.
 Selected bounded, manual assessment procedures are in the
 [Test Case Library](docs/operations/assessment-procedures/README.md); they never replace engagement
 authorization, Rules of Engagement, or the safety precheck.
+
+Customer-output operations include [Finding QA](docs/operations/FINDING_QA_CHECKLIST.md), the
+[report template](docs/operations/CUSTOMER_REPORT_TEMPLATE.md), [delivery](docs/operations/ASSESSMENT_DELIVERY_PROCEDURE.md),
+and [retention/deletion](docs/operations/ASSESSMENT_DATA_RETENTION_AND_DELETION.md).
