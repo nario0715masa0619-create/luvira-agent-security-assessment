@@ -93,3 +93,7 @@ Before any customer-environment testing, use the operational templates for
 [safety precheck](docs/operations/AI_SAFETY_PRECHECK_FORM.md), [STOP procedure](docs/operations/ASSESSMENT_INCIDENT_AND_STOP_PROCEDURE.md),
 and [readiness](docs/operations/ENGAGEMENT_READINESS_CHECKLIST.md). They are not legal agreements;
 customer approval and qualified legal review remain required.
+
+Selected bounded, manual assessment procedures are in the
+[Test Case Library](docs/operations/assessment-procedures/README.md); they never replace engagement
+authorization, Rules of Engagement, or the safety precheck.
