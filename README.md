@@ -106,3 +106,5 @@ Customer-output operations include [Finding QA](docs/operations/FINDING_QA_CHECK
 and [retention/deletion](docs/operations/ASSESSMENT_DATA_RETENTION_AND_DELETION.md).
 
 First-customer commercial materials are under [docs/commercial](docs/commercial/DESIGN_PARTNER_ONE_PAGER.md).
+The public-evidence-only [Customer #1 targeting model](docs/commercial/targeting/CUSTOMER_1_TARGET_PROFILE.md)
+defines research and scoring; it contains no company list or outreach automation.
