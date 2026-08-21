@@ -84,3 +84,12 @@ Fact / Hypothesis / Decision / Open Questionの区別、および人間承認プ
 [docs/product/PRODUCT_DEFINITION.md](docs/product/PRODUCT_DEFINITION.md)、
 [docs/security/THREAT_MODEL.md](docs/security/THREAT_MODEL.md) および
 [docs/security/ATTACK_TAXONOMY.md](docs/security/ATTACK_TAXONOMY.md) を参照。
+
+## First-customer engagement operations
+
+Before any customer-environment testing, use the operational templates for
+[intake](docs/operations/ASSESSMENT_INTAKE.md), [authorization](docs/operations/AUTHORIZATION_TO_TEST.md),
+[Rules of Engagement](docs/operations/RULES_OF_ENGAGEMENT.md), [credential handling](docs/operations/CREDENTIAL_AND_ACCESS_HANDLING.md),
+[safety precheck](docs/operations/AI_SAFETY_PRECHECK_FORM.md), [STOP procedure](docs/operations/ASSESSMENT_INCIDENT_AND_STOP_PROCEDURE.md),
+and [readiness](docs/operations/ENGAGEMENT_READINESS_CHECKLIST.md). They are not legal agreements;
+customer approval and qualified legal review remain required.
