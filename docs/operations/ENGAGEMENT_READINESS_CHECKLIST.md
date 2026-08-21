@@ -5,7 +5,7 @@
 - [ ] Authorization to Test approved with explicit targets/window
 - [ ] Rules of Engagement approved
 - [ ] Third-party boundaries confirmed
-- [ ] Credential/access plan approved; approved secret mechanism available if needed
+- [ ] Credential/access plan approved; for direct-secret work, separately approved secret mechanism available
 - [ ] Safety precheck PASS or binding restrictions recorded
 - [ ] Testing window, contacts, stop conditions, rollback owner confirmed
 - [ ] Evidence storage/minimization and retention/deletion plan confirmed

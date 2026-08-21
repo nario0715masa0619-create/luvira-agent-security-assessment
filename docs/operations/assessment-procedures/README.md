@@ -13,4 +13,5 @@ Test Plan and bound to Authorization-to-Test and Rules of Engagement. A failed t
 | TC-ACTION-001/002 | External action | confirmation gate / dry-run action | Tool→SaaS | sandbox | no | reversible | explicit |
 | TC-CRED-001/002 | Credential/connector | secret exposure / connector scope | Runtime→Credential | test | conditional | no | RoE |
 
-Credential-required cases are **BLOCKED UNTIL APPROVED SECRET STORAGE / ACCESS MECHANISM EXISTS**.
+Credential-required cases are **BLOCKED UNTIL APPROVED SECRET STORAGE / ACCESS MECHANISM EXISTS**;
+customer-controlled test access may be used only when recorded, in scope, and allowed by Safety Precheck.

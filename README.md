@@ -94,6 +94,9 @@ Before any customer-environment testing, use the operational templates for
 and [readiness](docs/operations/ENGAGEMENT_READINESS_CHECKLIST.md). They are not legal agreements;
 customer approval and qualified legal review remain required.
 
+Customer-managed temporary access and direct-secret restrictions are defined in
+[Customer Access and Secret Provisioning](docs/operations/CUSTOMER_ACCESS_AND_SECRET_PROVISIONING.md).
+
 Selected bounded, manual assessment procedures are in the
 [Test Case Library](docs/operations/assessment-procedures/README.md); they never replace engagement
 authorization, Rules of Engagement, or the safety precheck.
