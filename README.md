@@ -105,6 +105,8 @@ Customer-output operations include [Finding QA](docs/operations/FINDING_QA_CHECK
 [report template](docs/operations/CUSTOMER_REPORT_TEMPLATE.md), [delivery](docs/operations/ASSESSMENT_DELIVERY_PROCEDURE.md),
 and [retention/deletion](docs/operations/ASSESSMENT_DATA_RETENTION_AND_DELETION.md).
 
+AI-assisted assessment controls: [docs/operations/AI_ASSISTED_ASSESSMENT_CONTROLS.md](docs/operations/AI_ASSISTED_ASSESSMENT_CONTROLS.md)
+
 First-customer commercial materials are under [docs/commercial](docs/commercial/DESIGN_PARTNER_ONE_PAGER.md).
 The public-evidence-only [Customer #1 targeting model](docs/commercial/targeting/CUSTOMER_1_TARGET_PROFILE.md)
 defines research and scoring; it contains no company list or outreach automation.
