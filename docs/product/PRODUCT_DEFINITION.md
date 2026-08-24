@@ -118,6 +118,11 @@ Design Partner候補との対話で検証する。現時点で確定していな
 **[Fact]** 上記のEnterprise Sales Enablement等は成果物の性質・用途に関する約束であり、
 商談成立・審査通過そのものを保証するものではない。
 
+**[Decision]** AI（Claude等）を診断業務の補助に用いる場合、その出力はCandidate/Draft材料に
+留まる。Evidence確認・Human Review・QAを経ない限り、最終Finding・Severity・Confidence・
+顧客向け結論・納品判断には用いない（詳細は
+[AI-assisted Assessment Controls](../operations/AI_ASSISTED_ASSESSMENT_CONTROLS.md)を参照）。
+
 ---
 
 ## 5. Assessment Scope
@@ -163,6 +168,25 @@ Design Partner候補との対話で検証する。現時点で確定していな
 
 **[Fact]** 上記はAttack Taxonomyの正式版ではない。Core Scope Candidate内の個別Attack手法・
 分類体系は後続Phase（Formal Attack Taxonomy設計）で確定する。
+
+### 5c. Security Domains to Evaluate（Next-phase Input、v1必須Scopeではない）
+
+**[Hypothesis]** 以下は、将来のFormal Attack Taxonomy設計（13章 Open Question 7参照）等、
+次フェーズでの検討対象となりうるSecurity Domain候補である。5aを置き換えるものではなく、
+v1のAssessment Scopeを拡大するものでもない。
+
+- Authority / permission boundary
+- Credential and secret use
+- Tool invocation and misuse
+- Connector / SaaS action paths
+- Customer data access and exposure
+- External side effects
+- Indirect prompt injection and goal hijacking
+- Evidence quality and reproducibility
+- Remediation / retest evidence
+
+**[Fact]** 上記はv1 Core Scope Candidate（5a）への即時追加項目ではなく、次フェーズ検討のための
+入力候補である。
 
 ---
 
@@ -261,18 +285,50 @@ Scoping
 
 ## 10. Differentiation Hypothesis
 
-**[Hypothesis]** 差別化は「攻撃パターン数の多さ」ではなく、以下による：
+**[Decision]** 攻撃パターン数・チェックリストの大きさ・Prompt Injectionライブラリの網羅性・
+Generic LLM Pentestのカバレッジを主差別化要因としない。ASAは「攻撃の数」ではなく、
+architecture理解、Authority/Permission推論、Evidence-backed Findings、Business Impact変換、
+Remediation-ready Output、Enterprise Sales Enablementを中心に位置づける。
 
-1. **Action-centric**: Promptだけでなく、Authority/Permission/Tool/Credential/Connector/
-   External ActionまでをAttack Pathとして評価する。
-2. **Evidence-native**: Findingを文章のみで保存せず、攻撃実行とEvidenceに基づいて構築する。
-3. **Reproducible**: 同一条件下で可能な限り再実行・再検証できることを目指す。
-4. **Machine-readable**: 将来的にPentest結果を構造化データ（Canonical Assessment Record）
+**[Hypothesis]** 差別化は以下の組み合わせによる仮説とする：
+
+1. **Action-centric（有効だが単独では恒久的差別化として不十分）**: Promptだけでなく、
+   Authority/Permission/Tool/Credential/Connector/External ActionまでをAttack Pathとして
+   評価する。ただしAction-centricであること自体は他社も追随しうるため、単独の恒久的
+   差別化要因とはしない。
+2. **Authority-aware（新規Hypothesis、v1必須スキーマではない）**: Agent identity、
+   User/顧客の権限、Permission、Credential、Tool、対象Resource、External Action、
+   Business Impactの関係性を踏まえてAssessmentを評価する方向性。正式なAuthority Graph /
+   Action Graph等のデータモデル設計は本文書の対象外であり、後続Phaseの検討事項とする。
+3. **Business-impact linked（強化）**: Findingを技術的挙動の記述で終わらせず、顧客データ
+   露出、不正なTransaction、不正な外部通信、データ改変、業務プロセス操作、特権システム
+   操作、外部Side Effect等のBusiness Impactに接続する。
+4. **Evidence-native**: Findingを文章のみで保存せず、攻撃実行とEvidenceに基づいて構築する。
+5. **Reproducible**: 同一条件下で可能な限り再実行・再検証できることを目指す。
+6. **Machine-readable**: 将来的にPentest結果を構造化データ（Canonical Assessment Record）
    として保存する方向性を持つ（v1で正式スキーマは設計しない）。
-5. **Enterprise-ready output**: 成果物がGeneric診断レポートではなく、
+7. **Enterprise-ready output**: 成果物がGeneric診断レポートではなく、
    Enterprise Sales/Security Reviewの文脈でそのまま活用できることを目指す。
 
-**[Open Question]** 上記差別化仮説が実際の商談で顧客に評価されるかは未検証。
+**[Decision]** 本章の差別化仮説拡張（Authority-aware / Business-impact linked強化）は、
+v1 Assessment Scope（5章）を拡大するものではなく、最初の有償Design Partner獲得
+（9章・11章）を遅らせるものであってはならない。
+
+**[Open Question]** 上記差別化仮説（Action-centric + Authority-aware + Business-impact
+linked）が実際の商談で顧客に評価されるかは未検証。
+
+### 10a. Long-term Direction（将来の資産仮説、v1納品物ではない）
+
+**[Hypothesis]** 長期的には、実施したAssessmentの結果を以下の関係データとして蓄積し、
+将来のSecurity Intelligence資産とする方向性を仮説として持つ：
+
+Attack × Architecture × Authority × Permission × Credential × Tool × Action × Evidence ×
+Impact × Remediation × Retest
+
+**[Decision]** 上記はv1の納品物・実装要件ではなく、本文書でも正式なスキーマ設計は行わない。
+Continuous Security / Continuous Validation / Runtime Protection / AI Gateway /
+Security Intelligence Platformの実装は、引き続きLater/Long-termとし、v1には含めない
+（5b章・6章と整合）。
 
 ---
 
@@ -363,6 +419,16 @@ Scoping
 - 最初から巨大Platformを作らない
 - 最初の有償顧客獲得を優先する
 - 「安全を保証する」「すべての脆弱性を発見する」「認証取得を保証する」等の表現は使用しない
+- 攻撃パターン数・チェックリストの大きさ・Prompt Injectionライブラリの網羅性を主差別化要因と
+  しない。差別化仮説はAction-centric + Authority-aware + Business-impact linkedの組み合わせ
+  とする（Authority-aware/Business-impact linked強化はHypothesis、Attack-countを主差別化と
+  しないことはDecision）
+- 長期のSecurity Intelligence関係データ方向性（Attack×Architecture×Authority×Permission×
+  Credential×Tool×Action×Evidence×Impact×Remediation×Retest）はv1納品物・実装要件ではなく、
+  将来の資産仮説として位置づける。正式スキーマ設計は本文書では行わない
+- AI（Claude等）による診断業務補助の出力はCandidate/Draft材料に留め、Evidence確認・
+  Human Review・QAを経ない限り、最終Finding・Severity・Confidence・顧客向け結論・納品判断
+  には用いない
 
 上記以外（ICP詳細の最終確定、価格、期間、Attack Coverage、SLA、Report format、Tooling、
 Architecture）はすべてHypothesisまたはOpen Questionであり、明示承認までDecisionに
