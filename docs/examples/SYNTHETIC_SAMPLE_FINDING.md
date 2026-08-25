@@ -7,6 +7,14 @@ a sandbox write-capable connector. **Synthetic Evidence:** an approved dry-run r
 selection changed while no confirmation boundary appeared. No customer system, credential, or real
 data was used.
 
+**Severity:** MEDIUM (synthetic illustrative value only; based on an unintended external-action path
+demonstrated in a sandbox dry-run, not a confirmed data or tenant impact; final severity requires
+human review against the actual engagement context). **Confidence:** MEDIUM (synthetic illustrative
+value only; based on a single dry-run observation described above, not yet independently reproduced;
+final confidence requires evidence review and human QA per
+[Finding QA Checklist](../operations/FINDING_QA_CHECKLIST.md)). Neither value is determined by AI
+alone; no AI assistance is assumed in drafting this synthetic sample.
+
 **Root Cause candidate:** untrusted-content instructions were not isolated from tool-selection policy.
 **Trust Boundary:** external content → agent → tool. **Authority impact:** unintended External Action.
 **Business impact hypothesis:** if reproduced in a customer-authorized environment, a user-controlled
