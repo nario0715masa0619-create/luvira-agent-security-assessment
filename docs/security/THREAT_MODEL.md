@@ -143,6 +143,7 @@ Scoping段階で確定する。
 - MCP server responses
 - Connector outputs
 - API responses
+- Webhook / event callback（人間の入力を介さない、外部イベント駆動のTrigger）
 
 **[Hypothesis / Candidate]** 実際に該当するEntry Pointは、Design Partnerごとの
 Agent構成・接続先に依存し、Scopingで確定する。上記一覧は固定チェックリストでは
@@ -378,6 +379,22 @@ Modelにも適用する（Impact評価は可能性の説明であり、保証で
 - Advanced multi-agent autonomous attack campaigns
 - AI Gateway / Model Router security design
 - Formal security certification
+
+### 11a. Runtime / Persistent Configuration（Later Consideration）
+
+**[Hypothesis]** Runtime configuration、Persistent configuration、Persistent
+state、Agent configuration、Tool configuration、Local API exposureは、それが
+Agent Action Risk（Agentの挙動、Tool availability、Authority boundary、
+Connector permissions、Credential露出経路、External Action経路、将来の
+Agent挙動）へ直接影響する場合に限り、将来のASA Assessmentに関連しうる候補
+領域として認識する。
+
+**[Decision]** 上記はv1 Assessment Scopeを変更しない。Generic Infrastructure
+Pentest、Generic host / network / cloud infrastructure securityは、本注記
+以降も引き続きOut of Scopeのままとする（本章冒頭のDecisionと同一方針）。
+Runtime Protection Platform、Continuous Monitoring、Hardware / Runtime
+Attestation実装は、本注記によってもv1へ追加されない。本注記は新しいTest
+Caseを一件も追加しない。
 
 ---
 
